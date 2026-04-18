@@ -293,11 +293,10 @@ def test_update_calculation_via_edit_page(page, fastapi_server):
     assert resp.json()["result"] == 100.0, (
         f"Expected updated result 100.0, got {resp.json()['result']}"
     )
-
-    page.wait_for_selector("#successAlert:not(.hidden)", timeout=5000)
-    success_text = page.inner_text("#successMessage")
-    assert "updated" in success_text.lower(), (
-        f"Expected 'updated' in success message, got: {success_text!r}"
+    
+    page.wait_for_url(f"**/dashboard/view/{calc_id}", timeout=5000)
+    assert f"/dashboard/view/{calc_id}" in page.url, (
+        f"Expected redirect to view page after update, currently at {page.url}"
     )
 
 
