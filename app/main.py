@@ -63,6 +63,14 @@ def register_page(request: Request):
 def dashboard_page(request: Request):
     return templates.TemplateResponse("dashboard.html", {"request": request})
 
+@app.get("/dashboard/view/{calc_id}", response_class=HTMLResponse, tags=["web"])
+def view_calculation_page(request: Request, calc_id: str):
+    return templates.TemplateResponse("view_calculation.html", {"request": request, "calc_id": calc_id})
+
+@app.get("/dashboard/edit/{calc_id}", response_class=HTMLResponse, tags=["web"])
+def edit_calculation_page(request: Request, calc_id: str):
+    return templates.TemplateResponse("edit_calculation.html", {"request": request, "calc_id": calc_id})
+
 # ------------------------------------------------------------------------------
 # Health Endpoint
 # ------------------------------------------------------------------------------
